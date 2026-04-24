@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 KakayTracks 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pastel-pink: #FFB5C2;
+            --pastel-purple: #C9B1FF;
+            --pastel-blue: #B5D8FF;
+            --pastel-green: #B5FFCB;
+            --pastel-yellow: #FFF3B5;
+            --pastel-orange: #FFD4B5;
+            --cream: #FFF9F0;
+            --dark-text: #5A4A6B;
+            --light-card: rgba(255, 255, 255, 0.75);
+            --glass: rgba(255, 255, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fce4ec, #e8eaf6, #e0f7fa, #fff3e0);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            color: var(--dark-text);
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating animals */
+        .floating-animals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-animal {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatAround 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes floatAround {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 30px 20px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: 'Pacifico', cursive;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #ff6b9d, #c471ed, #12c2e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header-subtitle {
+            font-size: 1rem;
+            color: #9a8ca8;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        .header-capybara {
+            font-size: 3rem;
+            display: block;
+            margin-top: 10px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.1); }
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px 20px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            background: var(--glass);
+            color: var(--dark-text);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn.active[data-tab="finance"] { background: var(--pastel-pink); }
+        .nav-btn.active[data-tab="daily"] { background: var(--pastel-purple); }
+        .nav-btn.active[data-tab="university"] { background: var(--pastel-blue); }
+        .nav-btn.active[data-tab="chess"] { background: var(--pastel-green); }
+        .nav-btn.active[data-tab="dashboard"] { background: var(--pastel-yellow); }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 10px 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--light-card);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title .emoji {
+            font-size: 1.6rem;
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-purple));
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .summary-card.income {
+            background: linear-gradient(135deg, var(--pastel-green), var(--pastel-blue));
+        }
+
+        .summary-card.bills {
+            background: linear-gradient(135deg, var(--pastel-orange), var(--pastel-pink));
+        }
+
+        .summary-card.balance {
+            background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-blue));
+        }
+
+        .summary-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        .summary-amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .summary-icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        /* Form Styles */
+        .form-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #8a7a9a;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid rgba(201, 177, 255, 0.3);
+            border-radius: 15px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--dark-text);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--pastel-purple);
+            box-shadow: 0 0 15px rgba(201, 177, 255, 0.3);
+            background: white;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 15px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b9d, #c471ed);
+            color: white;
+        }
+
+        .btn-income {
+            background: linear-gradient(135deg, #56ab2f, #a8e063);
+            color: white;
+        }
+
+        .btn-expense {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+        }
+
+        .btn-bill {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 5px 12px;
+            font-size: 0.75rem;
+            border-radius: 10px;
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: #c0392b;
+        }
+
+        .btn-complete {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #27ae60;
+        }
+
+        /* Transaction List */
+        .transaction-list {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .transaction-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .transaction-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .transaction-list::-webkit-scrollbar-thumb {
+            background: var(--pastel-purple);
+            border-radius: 10px;
+        }
+
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .transaction-item:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateX(5px);
+        }
+
+        .transaction-item.income-item {
+            border-left-color: #56ab2f;
+        }
+
+        .transaction-item.expense-item {
+            border-left-color: #ee5a6f;
+        }
+
+        .transaction-item.bill-item {
+            border-left-color: #f093fb;
+        }
+
+        .transaction-info {
+            flex: 1;
+        }
+
+        .transaction-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .transaction-category {
+            font-size: 0.75rem;
+            color: #9a8ca8;
+            margin-top: 2px;
+        }
+
+        .transaction-amount {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .transaction-amount.positive {
+            color: #27ae60;
+        }
+
+        .transaction-amount.negative {
+            color: #e74c3c;
+        }
+
+        .transaction-actions {
+            display: flex;
+            gap: 5px;
+            margin-left: 10px;
+        }
+
+        /* Checklist Styles */
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .checklist-item.completed {
+            opacity: 0.6;
+        }
+
+        .checklist-item.completed .task-text {
+            text-decoration: line-through;
+        }
+
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            border: 2px solid var(--pastel-purple);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .custom-checkbox:hover {
+            background: var(--pastel-purple);
+        }
+
+        .custom-checkbox.checked {
+            background: linear-gradient(135deg, #56ab2f, #a8e063);
+            border-color: #56ab2f;
+        }
+
+        .custom-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .task-text {
+            flex: 1;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .task-priority {
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .priority-high {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .priority-medium {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+
+        .priority-low {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .task-date {
+            font-size: 0.75rem;
+            color: #9a8ca8;
+        }
+
+        /* Add task inline */
+        .add-task-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .add-task-row input {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .add-task-row select {
+            width: 120px;
+            flex-shrink: 0;
+        }
+
+        /* Progress bar */
+        .progress-container {
+            margin-bottom: 15px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            background: linear-gradient(135deg, #ff6b9d, #c471ed, #12c2e9);
+        }
+
+        .progress-fill.green {
+            background: linear-gradient(135deg, #56ab2f, #a8e063);
+        }
+
+        .progress-fill.blue {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .progress-fill.orange {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        /* Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .dashboard-widget {
+            background: var(--light-card);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            text-align: center;
+        }
+
+        .widget-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .widget-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b9d, #c471ed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .widget-sub {
+            font-size: 0.8rem;
+            color: #9a8ca8;
+            margin-top: 5px;
+        }
+
+        /* Capybara mascot */
+        .mascot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 3rem;
+            cursor: pointer;
+            z-index: 100;
+            animation: mascotBounce 3s ease-in-out infinite;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
+        }
+
+        .mascot:hover {
+            transform: scale(1.3) rotate(10deg);
+        }
+
+        @keyframes mascotBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .mascot-speech {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: white;
+            border-radius: 20px;
+            padding: 12px 18px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: none;
+            max-width: 220px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .mascot-speech::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 25px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid white;
+        }
+
+        .mascot-speech.show {
+            display: block;
+        }
+
+        /* Filter buttons */
+        .filter-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 6px 15px;
+            border: 2px solid rgba(201, 177, 255, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--dark-text);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--pastel-purple);
+            border-color: var(--pastel-purple);
+            color: white;
+        }
+
+        /* Chess specific */
+        .chess-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .chess-stat {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+        }
+
+        .chess-stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-text);
+        }
+
+        .chess-stat-label {
+            font-size: 0.75rem;
+            color: #9a8ca8;
+            font-weight: 600;
+        }
+
+        /* Motivational quote */
+        .quote-card {
+            background: linear-gradient(135deg, rgba(255, 181, 194, 0.3), rgba(201, 177, 255, 0.3));
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .quote-text {
+            font-style: italic;
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .quote-animal {
+            font-size: 2rem;
+            margin-top: 10px;
+        }
+
+        /* Tabs within finance */
+        .sub-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .sub-tab {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.4);
+            color: var(--dark-text);
+            transition: all 0.3s ease;
+        }
+
+        .sub-tab.active {
+            background: var(--pastel-pink);
+            color: white;
+        }
+
+        .sub-content {
+            display: none;
+        }
+
+        .sub-content.active {
+            display: block;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #b8a9c9;
+        }
+
+        .empty-state .emoji {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            font-weight: 600;
+        }
+
+        /* Streak badge */
+        .streak-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .logo { font-size: 2.2rem; }
+            .summary-grid { grid-template-columns: 1fr; }
+            .chess-stats { grid-template-columns: 1fr; }
+            .form-row { flex-direction: column; }
+            .card { padding: 18px; }
+            .nav-btn { padding: 8px 15px; font-size: 0.8rem; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .transaction-item { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .transaction-actions { margin-left: 0; }
+        }
+
+        /* Dark mode toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Clear data button */
+        .clear-data {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        /* Bill specific styles */
+        .bill-due {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        .bill-overdue {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .bill-upcoming {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+
+        .bill-paid {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating background animals -->
+    <div class="floating-animals" id="floatingAnimals"></div>
+
+    <!-- Theme toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle vibes ✨">🌙</button>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">KakayTracks</div>
+        <div class="header-subtitle">✨ track ur life, bestie - elay :)✨</div>
+        <div class="header-capybara">🦫</div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <button class="nav-btn active" data-tab="dashboard" onclick="switchTab('dashboard')">🏠 Dashboard</button>
+        <button class="nav-btn" data-tab="finance" onclick="switchTab('finance')">💰 Finance</button>
+        <button class="nav-btn" data-tab="daily" onclick="switchTab('daily')">📝 Daily Tasks</button>
+        <button class="nav-btn" data-tab="university" onclick="switchTab('university')">🎓 University</button>
+        <button class="nav-btn" data-tab="chess" onclick="switchTab('chess')">♟️ Chess</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- ========== DASHBOARD ========== -->
+        <div class="tab-content active" id="tab-dashboard">
+            <div class="quote-card">
+                <div class="quote-text" id="dailyQuote">"Just keep swimming... or floating like a capybara 🌊"</div>
+                <div class="quote-animal">🦫💕</div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-widget">
+                    <div class="widget-title">💰 Balance</div>
+                    <div class="widget-number" id="dashBalance">₱0</div>
+                    <div class="widget-sub">current balance</div>
+                </div>
+                <div class="dashboard-widget">
+                    <div class="widget-title">✅ Tasks Done</div>
+                    <div class="widget-number" id="dashTasksDone">0</div>
+                    <div class="widget-sub">today's completed</div>
+                </div>
+                <div class="dashboard-widget">
+                    <div class="widget-title">📚 Uni Tasks</div>
+                    <div class="widget-number" id="dashUniPending">0</div>
+                    <div class="widget-sub">pending assignments</div>
+                </div>
+                <div class="dashboard-widget">
+                    <div class="widget-title">♟️ Chess</div>
+                    <div class="widget-number" id="dashChessDone">0</div>
+                    <div class="widget-sub">training completed</div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-title"><span class="emoji">🔥</span> Your Streak</div>
+                <div style="text-align: center; padding: 10px;">
+                    <span class="streak-badge" id="streakBadge">🔥 0 day streak</span>
+                    <p style="margin-top: 10px; font-size: 0.85rem; color: #9a8ca8;">Complete all daily tasks to keep your streak!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== FINANCE ========== -->
+        <div class="tab-content" id="tab-finance">
+            <div class="summary-grid">
+                <div class="summary-card income">
+                    <div class="summary-icon">💚</div>
+                    <div class="summary-label">Total Income</div>
+                    <div class="summary-amount" id="totalIncome">₱0</div>
+                </div>
+                <div class="summary-card bills">
+                    <div class="summary-icon">📋</div>
+                    <div class="summary-label">Total Expenses</div>
+                    <div class="summary-amount" id="totalExpenses">₱0</div>
+                </div>
+                <div class="summary-card balance">
+                    <div class="summary-icon">✨</div>
+                    <div class="summary-label">Balance</div>
+                    <div class="summary-amount" id="totalBalance">₱0</div>
+                </div>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab active" onclick="switchSubTab('income-tab')">💚 Income</button>
+                <button class="sub-tab" onclick="switchSubTab('expense-tab')">💸 Expenses</button>
+                <button class="sub-tab" onclick="switchSubTab('bills-tab')">📋 Bills</button>
+            </div>
+
+            <!-- Income Tab -->
+            <div class="sub-content active" id="income-tab">
+                <div class="card">
+                    <div class="card-title"><span class="emoji">💚</span> Add Income</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Source</label>
+                            <input type="text" id="incomeSource" placeholder="e.g., Salary, Freelance...">
+                        </div>
+                        <div class="form-group">
+                            <label>Amount (₱)</label>
+                            <input type="number" id="incomeAmount" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" id="incomeDate">
+                        </div>
+                    </div>
+                    <button class="btn btn-income" onclick="addIncome()">💚 Add Income</button>
+                </div>
+                <div class="card">
+                    <div class="card-title"><span class="emoji">📊</span> Income History</div>
+                    <div class="transaction-list" id="incomeList">
+                        <div class="empty-state">
+                            <div class="emoji">🦫💤</div>
+                            <p>No income yet... capybara is waiting~</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expenses Tab -->
+            <div class="sub-content" id="expense-tab">
+                <div class="card">
+                    <div class="card-title"><span class="emoji">💸</span> Add Expense</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" id="expenseName" placeholder="e.g., Boba tea, Groceries...">
+                        </div>
+                        <div class="form-group">
+                            <label>Amount (₱)</label>
+                            <input type="number" id="expenseAmount" placeholder="0.00" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="expenseCategory">
+                                <option value="🍔 Food">🍔 Food</option>
+                                <option value="🚗 Transport">🚗 Transport</option>
+                                <option value="🛒 Shopping">🛒 Shopping</option>
+                                <option value="🎮 Entertainment">🎮 Entertainment</option>
+                                <option value="📱 Subscriptions">📱 Subscriptions</option>
+                                <option value="💊 Health">💊 Health</option>
+                                <option value="📚 Education">📚 Education</option>
+                                <option value="🏠 Home">🏠 Home</option>
+                                <option value="🧋 Boba">🧋 Boba</option>
+                                <option value="✨ Other">✨ Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" id="expenseDate">
+                        </div>
+                    </div>
+                    <button class="btn btn-expense" onclick="addExpense()">💸 Add Expense</button>
+                </div>
+                <div class="card">
+                    <div class="card-title"><span class="emoji">📜</span> Expense History</div>
+                    <div class="transaction-list" id="expenseList">
+                        <div class="empty-state">
+                            <div class="emoji">🐸✨</div>
+                            <p>No expenses! Saving queen 👑</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bills Tab -->
+            <div class="sub-content" id="bills-tab">
+                <div class="card">
+                    <div class="card-title"><span class="emoji">📋</span> Add Bill</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Bill Name</label>
+                            <input type="text" id="billName" placeholder="e.g., WiFi, Electricity...">
+                        </div>
+                        <div class="form-group">
+                            <label>Amount (₱)</label>
+                            <input type="number" id="billAmount" placeholder="0.00" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Due Date</label>
+                            <input type="date" id="billDue">
+                        </div>
+                        <div class="form-group">
+                            <label>Recurring</label>
+                            <select id="billRecurring">
+                                <option value="one-time">One-time</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="weekly">Weekly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-bill" onclick="addBill()">📋 Add Bill</button>
+                </div>
+                <div class="card">
+                    <div class="card-title"><span class="emoji">🗂️</span> Your Bills</div>
+                    <div class="transaction-list" id="billList">
+                        <div class="empty-state">
+                            <div class="emoji">🦦🌿</div>
+                            <p>No bills! Living the dream~</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== DAILY TASKS ========== -->
+        <div class="tab-content" id="tab-daily">
+            <div class="card">
+                <div class="card-title"><span class="emoji">✨</span> Add Daily Task</div>
+                <div class="add-task-row">
+                    <input type="text" id="dailyTaskInput" placeholder="what do u need to do, bestie? ✨" onkeypress="if(event.key==='Enter')addDailyTask()">
+                    <select id="dailyPriority">
+                        <option value="low">🟢 Low</option>
+                        <option value="medium" selected>🟡 Medium</option>
+                        <option value="high">🔴 High</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="addDailyTask()">➕ Add</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="emoji">📝</span> Today's Tasks</div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Progress</span>
+                        <span id="dailyProgressText">0/0 done</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill green" id="dailyProgressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div id="dailyTaskList">
+                    <div class="empty-state">
+                        <div class="emoji">🦫☕</div>
+                        <p>No tasks yet~ capybara approves of rest!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== UNIVERSITY ========== -->
+        <div class="tab-content" id="tab-university">
+            <div class="card">
+                <div class="card-title"><span class="emoji">🎓</span> Add University Work</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Task / Assignment</label>
+                        <input type="text" id="uniTaskInput" placeholder="e.g., Math homework, Research paper...">
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <input type="text" id="uniSubject" placeholder="e.g., Mathematics, CS...">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Deadline</label>
+                        <input type="date" id="uniDeadline">
+                    </div>
+                    <div class="form-group">
+                        <label>Priority</label>
+                        <select id="uniPriority">
+                            <option value="low">🟢 Low</option>
+                            <option value="medium" selected>🟡 Medium</option>
+                            <option value="high">🔴 High</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label>Notes (optional)</label>
+                    <textarea id="uniNotes" placeholder="any extra details, bestie~"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="addUniTask()">📚 Add Task</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="emoji">📚</span> University Tasks</div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Progress</span>
+                        <span id="uniProgressText">0/0 done</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill blue" id="uniProgressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="filter-row">
+                    <button class="filter-btn active" onclick="filterUni('all', this)">All</button>
+                    <button class="filter-btn" onclick="filterUni('pending', this)">Pending</button>
+                    <button class="filter-btn" onclick="filterUni('completed', this)">Done</button>
+                </div>
+                <div id="uniTaskList">
+                    <div class="empty-state">
+                        <div class="emoji">🦔📖</div>
+                        <p>No assignments yet! Enjoy the peace~</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== CHESS ========== -->
+        <div class="tab-content" id="tab-chess">
+            <div class="card">
+                <div class="card-title"><span class="emoji">♟️</span> Chess Training Stats</div>
+                <div class="chess-stats">
+                    <div class="chess-stat">
+                        <div class="chess-stat-number" id="chessPuzzles">0</div>
+                        <div class="chess-stat-label">Puzzles Done</div>
+                    </div>
+                    <div class="chess-stat">
+                        <div class="chess-stat-number" id="chessGames">0</div>
+                        <div class="chess-stat-label">Games Played</div>
+                    </div>
+                    <div class="chess-stat">
+                        <div class="chess-stat-number" id="chessStudy">0</div>
+                        <div class="chess-stat-label">Hours Studied</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="emoji">📝</span> Add Training Task</div>
+                <div class="add-task-row">
+                    <input type="text" id="chessTaskInput" placeholder="e.g., 10 puzzles, Study endgames..." onkeypress="if(event.key==='Enter')addChessTask()">
+                    <select id="chessCategory">
+                        <option value="🧩 Puzzles">🧩 Puzzles</option>
+                        <option value="🎮 Games">🎮 Games</option>
+                        <option value="📖 Study">📖 Study</option>
+                        <option value="📺 Videos">📺 Videos</option>
+                        <option value="🏆 Tournament">🏆 Tournament</option>
+                        <option value="♟️ Opening">♟️ Opening</option>
+                        <option value="🔚 Endgame">🔚 Endgame</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="addChessTask()">➕ Add</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="emoji">🎯</span> Training Checklist</div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Today's Training</span>
+                        <span id="chessProgressText">0/0 done</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill orange" id="chessProgressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div id="chessTaskList">
+                    <div class="empty-state">
+                        <div class="emoji">🐧♟️</div>
+                        <p>No training tasks yet! Time to grind~</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Capybara Mascot -->
+    <div class="mascot" onclick="toggleSpeech()" title="Click me!">🦫</div>
+    <div class="mascot-speech" id="mascotSpeech">hi bestie! u got this today! 💖</div>
+
+    <!-- Confetti canvas -->
+    <canvas class="confetti" id="confettiCanvas"></canvas>
+
+    <script>
+        // ============ DATA STORE ============
+        let data = {
+            income: [],
+            expenses: [],
+            bills: [],
+            dailyTasks: [],
+            uniTasks: [],
+            chessTasks: [],
+            streak: 0,
+            lastCompleteDate: null
+        };
+
+        // Load data from localStorage
+        function loadData() {
+            const saved = localStorage.getItem('kakayTracksData');
+            if (saved) {
+                data = JSON.parse(saved);
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('kakayTracksData', JSON.stringify(data));
+        }
+
+        // ============ INITIALIZATION ============
+        window.onload = function() {
+            loadData();
+            setDefaultDates();
+            createFloatingAnimals();
+            renderAll();
+            randomQuote();
+        };
+
+        function setDefaultDates() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('incomeDate').value = today;
+            document.getElementById('expenseDate').value = today;
+            document.getElementById('billDue').value = today;
+            document.getElementById('uniDeadline').value = today;
+        }
+
+        // ============ FLOATING ANIMALS ============
+        function createFloatingAnimals() {
+            const animals = ['🦫', '🐸', '🦦', '🐧', '🦔', '🐢', '🐰', '🌸', '✨', '💖', '🍃', '☁️', '🫧'];
+            const container = document.getElementById('floatingAnimals');
+            for (let i = 0; i < 15; i++) {
+                const div = document.createElement('div');
+                div.className = 'floating-animal';
+                div.textContent = animals[Math.floor(Math.random() * animals.length)];
+                div.style.left = Math.random() * 100 + '%';
+                div.style.animationDuration = (15 + Math.random() * 20) + 's';
+                div.style.animationDelay = Math.random() * 20 + 's';
+                div.style.fontSize = (1 + Math.random() * 2) + 'rem';
+                container.appendChild(div);
+            }
+        }
+
+        // ============ TAB NAVIGATION ============
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tabName).classList.add('active');
+            document.querySelector(`.nav-btn[data-tab="${tabName}"]`).classList.add('active');
+        }
+
+        function switchSubTab(tabId) {
+            document.querySelectorAll('.sub-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // ============ FINANCE - INCOME ============
+        function addIncome() {
+            const source = document.getElementById('incomeSource').value.trim();
+            const amount = parseFloat(document.getElementById('incomeAmount').value);
+            const date = document.getElementById('incomeDate').value;
+
+            if (!source || !amount || amount <= 0) {
+                showMascotMessage("fill in the details pls! 🥺");
+                return;
+            }
+
+            data.income.push({ id: Date.now(), source, amount, date });
+            saveData();
+            document.getElementById('incomeSource').value = '';
+            document.getElementById('incomeAmount').value = '';
+            renderFinance();
+            updateDashboard();
+            showMascotMessage("money secured! 💰✨");
+        }
+
+        function addExpense() {
+            const name = document.getElementById('expenseName').value.trim();
+            const amount = parseFloat(document.getElementById('expenseAmount').value);
+            const category = document.getElementById('expenseCategory').value;
+            const date = document.getElementById('expenseDate').value;
+
+            if (!name || !amount || amount <= 0) {
+                showMascotMessage("fill in the details pls! 🥺");
+                return;
+            }
+
+            data.expenses.push({ id: Date.now(), name, amount, category, date });
+            saveData();
+            document.getElementById('expenseName').value = '';
+            document.getElementById('expenseAmount').value = '';
+            renderFinance();
+            updateDashboard();
+            showMascotMessage("spent wisely i hope! 💸");
+        }
+
+        function addBill() {
+            const name = document.getElementById('billName').value.trim();
+            const amount = parseFloat(document.getElementById('billAmount').value);
+            const due = document.getElementById('billDue').value;
+            const recurring = document.getElementById('billRecurring').value;
+
+            if (!name || !amount || amount <= 0) {
+                showMascotMessage("fill in the details pls! 🥺");
+                return;
+            }
+
+            data.bills.push({ id: Date.now(), name, amount, due, recurring, paid: false });
+            saveData();
+            document.getElementById('billName').value = '';
+            document.getElementById('billAmount').value = '';
+            renderFinance();
+            updateDashboard();
+            showMascotMessage("bill tracked! don't forget to pay~ 📋");
+        }
+
+        function deleteTransaction(type, id) {
+            if (type === 'income') data.income = data.income.filter(i => i.id !== id);
+            else if (type === 'expense') data.expenses = data.expenses.filter(i => i.id !== id);
+            else if (type === 'bill') data.bills = data.bills.filter(i => i.id !== id);
+            saveData();
+            renderFinance();
+            updateDashboard();
+        }
+
+        function toggleBillPaid(id) {
+            const bill = data.bills.find(b => b.id === id);
+            if (bill) {
+                bill.paid = !bill.paid;
+                if (bill.paid) {
+                    data.expenses.push({
+                        id: Date.now(),
+                        name: bill.name + ' (Bill)',
+                        amount: bill.amount,
+                        category: '📋 Bills',
+                        date: new Date().toISOString().split('T')[0]
+                    });
+                }
+                saveData();
+                renderFinance();
+                updateDashboard();
+            }
+        }
+
+        function renderFinance() {
+            const totalIncome = data.income.reduce((sum, i) => sum + i.amount, 0);
+            const totalExpenses = data.expenses.reduce((sum, e) => sum + e.amount, 0);
+            const balance = totalIncome - totalExpenses;
+
+            document.getElementById('totalIncome').textContent = '₱' + totalIncome.toLocaleString('en-US', {minimumFractionDigits: 2});
+            document.getElementById('totalExpenses').textContent = '₱' + totalExpenses.toLocaleString('en-US', {minimumFractionDigits: 2});
+            document.getElementById('totalBalance').textContent = '₱' + balance.toLocaleString('en-US', {minimumFractionDigits: 2});
+
+            // Income list
+            const incomeList = document.getElementById('incomeList');
+            if (data.income.length === 0) {
+                incomeList.innerHTML = '<div class="empty-state"><div class="emoji">🦫💤</div><p>No income yet... capybara is waiting~</p></div>';
+            } else {
+                incomeList.innerHTML = data.income.sort((a, b) => new Date(b.date) - new Date(a.date)).map(i => `
+                    <div class="transaction-item income-item">
+                        <div class="transaction-info">
+                            <div class="transaction-name">💚 ${i.source}</div>
+                            <div class="transaction-category">${i.date}</div>
+                        </div>
+                        <div class="transaction-amount positive">+₱${i.amount.toLocaleString('en-US', {minimumFractionDigits: 2})}</div>
+                        <div class="transaction-actions">
+                            <button class="btn btn-small btn-delete" onclick="deleteTransaction('income', ${i.id})">🗑️</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Expense list
+            const expenseList = document.getElementById('expenseList');
+            if (data.expenses.length === 0) {
+                expenseList.innerHTML = '<div class="empty-state"><div class="emoji">🐸✨</div><p>No expenses! Saving queen 👑</p></div>';
+            } else {
+                expenseList.innerHTML = data.expenses.sort((a, b) => new Date(b.date) - new Date(a.date)).map(e => `
+                    <div class="transaction-item expense-item">
+                        <div class="transaction-info">
+                            <div class="transaction-name">${e.name}</div>
+                            <div class="transaction-category">${e.category} • ${e.date}</div>
+                        </div>
+                        <div class="transaction-amount negative">-₱${e.amount.toLocaleString('en-US', {minimumFractionDigits: 2})}</div>
+                        <div class="transaction-actions">
+                            <button class="btn btn-small btn-delete" onclick="deleteTransaction('expense', ${e.id})">🗑️</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Bills list
+            const billList = document.getElementById('billList');
+            if (data.bills.length === 0) {
+                billList.innerHTML = '<div class="empty-state"><div class="emoji">🦦🌿</div><p>No bills! Living the dream~</p></div>';
+            } else {
+                const today = new Date();
+                billList.innerHTML = data.bills.sort((a, b) => new Date(a.due) - new Date(b.due)).map(b => {
+                    const dueDate = new Date(b.due);
+                    let statusClass = 'bill-upcoming';
+                    let statusText = 'Upcoming';
+                    if (b.paid) { statusClass = 'bill-paid'; statusText = 'Paid ✓'; }
+                    else if (dueDate < today) { statusClass = 'bill-overdue'; statusText = 'Overdue!'; }
+
+                    return `
+                    <div class="transaction-item bill-item" style="opacity: ${b.paid ? 0.6 : 1}">
+                        <div class="transaction-info">
+                            <div class="transaction-name">📋 ${b.name} ${b.recurring !== 'one-time' ? '🔄' : ''}</div>
+                            <div class="transaction-category">Due: ${b.due} • ${b.recurring}</div>
+                        </div>
+                        <span class="bill-due ${statusClass}">${statusText}</span>
+                        <div class="transaction-amount negative">₱${b.amount.toLocaleString('en-US', {minimumFractionDigits: 2})}</div>
+                        <div class="transaction-actions">
+                            ${!b.paid ? `<button class="btn btn-small btn-complete" onclick="toggleBillPaid(${b.id})">✅</button>` : ''}
+                            <button class="btn btn-small btn-delete" onclick="deleteTransaction('bill', ${b.id})">🗑️</button>
+                        </div>
+                    </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        // ============ DAILY TASKS ============
+        function addDailyTask() {
+            const text = document.getElementById('dailyTaskInput').value.trim();
+            const priority = document.getElementById('dailyPriority').value;
+
+            if (!text) {
+                showMascotMessage("type something first! 🥺");
+                return;
+            }
+
+            data.dailyTasks.push({
+                id: Date.now(),
+                text,
+                priority,
+                completed: false,
+                date: new Date().toISOString().split('T')[0]
+            });
+            saveData();
+            document.getElementById('dailyTaskInput').value = '';
+            renderDailyTasks();
+            updateDashboard();
+            showMascotMessage("task added! u can do it! 💪🦫");
+        }
+
+        function toggleDailyTask(id) {
+            const task = data.dailyTasks.find(t => t.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                saveData();
+                renderDailyTasks();
+                updateDashboard();
+                if (task.completed) {
+                    const allDone = data.dailyTasks.filter(t => t.date === new Date().toISOString().split('T')[0]).every(t => t.completed);
+                    if (allDone && data.dailyTasks.length > 0) {
+                        triggerConfetti();
+                        showMascotMessage("ALL DONE!! ur amazing!! 🎉🦫💖");
+                    } else {
+                        showMascotMessage("yay! one more done! ✨");
+                    }
+                }
+            }
+        }
+
+        function deleteDailyTask(id) {
+            data.dailyTasks = data.dailyTasks.filter(t => t.id !== id);
+            saveData();
+            renderDailyTasks();
+            updateDashboard();
+        }
+
+        function renderDailyTasks() {
+            const today = new Date().toISOString().split('T')[0];
+            const todayTasks = data.dailyTasks.filter(t => t.date === today);
+            const container = document.getElementById('dailyTaskList');
+
+            if (todayTasks.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="emoji">🦫☕</div><p>No tasks yet~ capybara approves of rest!</p></div>';
+            } else {
+                const sorted = [...todayTasks].sort((a, b) => {
+                    const priorityOrder = { high: 0, medium: 1, low: 2 };
+                    if (a.completed !== b.completed) return a.completed ? 1 : -1;
+                    return priorityOrder[a.priority] - priorityOrder[b.priority];
+                });
+
+                container.innerHTML = sorted.map(t => `
+                    <div class="checklist-item ${t.completed ? 'completed' : ''}">
+                        <div class="custom-checkbox ${t.completed ? 'checked' : ''}" onclick="toggleDailyTask(${t.id})"></div>
+                        <span class="task-text">${t.text}</span>
+                        <span class="task-priority priority-${t.priority}">${t.priority}</span>
+                        <button class="btn btn-small btn-delete" onclick="deleteDailyTask(${t.id})">✕</button>
+                    </div>
+                `).join('');
+            }
+
+            // Progress
+            const done = todayTasks.filter(t => t.completed).length;
+            const total = todayTasks.length;
+            const pct = total > 0 ? (done / total) * 100 : 0;
+            document.getElementById('dailyProgressText').textContent = `${done}/${total} done`;
+            document.getElementById('dailyProgressBar').style.width = pct + '%';
+        }
+
+        // ============ UNIVERSITY TASKS ============
+        let uniFilter = 'all';
+
+        function addUniTask() {
+            const text = document.getElementById('uniTaskInput').value.trim();
+            const subject = document.getElementById('uniSubject').value.trim();
+            const deadline = document.getElementById('uniDeadline').value;
+            const priority = document.getElementById('uniPriority').value;
+            const notes = document.getElementById('uniNotes').value.trim();
+
+            if (!text) {
+                showMascotMessage("what's the assignment? 🥺");
+                return;
+            }
+
+            data.uniTasks.push({
+                id: Date.now(),
+                text,
+                subject: subject || 'General',
+                deadline,
+                priority,
+                notes,
+                completed: false
+            });
+            saveData();
+            document.getElementById('uniTaskInput').value = '';
+            document.getElementById('uniSubject').value = '';
+            document.getElementById('uniNotes').value = '';
+            renderUniTasks();
+            updateDashboard();
+            showMascotMessage("assignment tracked! 📚✨");
+        }
+
+        function toggleUniTask(id) {
+            const task = data.uniTasks.find(t => t.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                saveData();
+                renderUniTasks();
+                updateDashboard();
+                if (task.completed) {
+                    showMascotMessage("assignment done! slay! 🎓💖");
+                    triggerConfetti();
+                }
+            }
+        }
+
+        function deleteUniTask(id) {
+            data.uniTasks = data.uniTasks.filter(t => t.id !== id);
+            saveData();
+            renderUniTasks();
+            updateDashboard();
+        }
+
+        function filterUni(filter, btn) {
+            uniFilter = filter;
+            document.querySelectorAll('#tab-university .filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderUniTasks();
+        }
+
+        function renderUniTasks() {
+            let tasks = [...data.uniTasks];
+            if (uniFilter === 'pending') tasks = tasks.filter(t => !t.completed);
+            if (uniFilter === 'completed') tasks = tasks.filter(t => t.completed);
+
+            const container = document.getElementById('uniTaskList');
+
+            if (tasks.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="emoji">🦔📖</div><p>No assignments here~</p></div>';
+            } else {
+                const sorted = tasks.sort((a, b) => {
+                    if (a.completed !== b.completed) return a.completed ? 1 : -1;
+                    return new Date(a.deadline) - new Date(b.deadline);
+                });
+
+                container.innerHTML = sorted.map(t => {
+                    const daysLeft = Math.ceil((new Date(t.deadline) - new Date()) / (1000 * 60 * 60 * 24));
+                    let deadlineLabel = '';
+                    if (t.completed) deadlineLabel = '✅ Done';
+                    else if (daysLeft < 0) deadlineLabel = '⚠️ Overdue!';
+                    else if (daysLeft === 0) deadlineLabel = '🔥 Due today!';
+                    else if (daysLeft === 1) deadlineLabel = '⏰ Due tomorrow';
+                    else deadlineLabel = `📅 ${daysLeft} days left`;
+
+                    return `
+                    <div class="checklist-item ${t.completed ? 'completed' : ''}">
+                        <div class="custom-checkbox ${t.completed ? 'checked' : ''}" onclick="toggleUniTask(${t.id})"></div>
+                        <div style="flex:1">
+                            <span class="task-text">${t.text}</span>
+                            <div style="font-size:0.75rem; color:#9a8ca8; margin-top:3px;">
+                                📘 ${t.subject} • ${deadlineLabel}
+                                ${t.notes ? '<br>📝 ' + t.notes : ''}
+                            </div>
+                        </div>
+                        <span class="task-priority priority-${t.priority}">${t.priority}</span>
+                        <button class="btn btn-small btn-delete" onclick="deleteUniTask(${t.id})">✕</button>
+                    </div>
+                    `;
+                }).join('');
+            }
+
+            // Progress
+            const done = data.uniTasks.filter(t => t.completed).length;
+            const total = data.uniTasks.length;
+            const pct = total > 0 ? (done / total) * 100 : 0;
+            document.getElementById('uniProgressText').textContent = `${done}/${total} done`;
+            document.getElementById('uniProgressBar').style.width = pct + '%';
+        }
+
+        // ============ CHESS TRAINING ============
+        function addChessTask() {
+            const text = document.getElementById('chessTaskInput').value.trim();
+            const category = document.getElementById('chessCategory').value;
+
+            if (!text) {
+                showMascotMessage("what's the training plan? ♟️");
+                return;
+            }
+
+            data.chessTasks.push({
+                id: Date.now(),
+                text,
+                category,
+                completed: false,
+                date: new Date().toISOString().split('T')[0]
+            });
+            saveData();
+            document.getElementById('chessTaskInput').value = '';
+            renderChessTasks();
+            updateDashboard();
+            showMascotMessage("training added! GM arc loading... ♟️🔥");
+        }
+
+        function toggleChessTask(id) {
+            const task = data.chessTasks.find(t => t.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                saveData();
+                renderChessTasks();
+                updateDashboard();
+                if (task.completed) {
+                    showMascotMessage("training done! GM energy! ♟️✨");
+                }
+            }
+        }
+
+        function deleteChessTask(id) {
+            data.chessTasks = data.chessTasks.filter(t => t.id !== id);
+            saveData();
+            renderChessTasks();
+            updateDashboard();
+        }
+
+        function renderChessTasks() {
+            const today = new Date().toISOString().split('T')[0];
+            const todayTasks = data.chessTasks.filter(t => t.date === today);
+            const container = document.getElementById('chessTaskList');
+
+            if (todayTasks.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="emoji">🐧♟️</div><p>No training tasks yet! Time to grind~</p></div>';
+            } else {
+                const sorted = [...todayTasks].sort((a, b) => a.completed === b.completed ? 0 : a.completed ? 1 : -1);
+                container.innerHTML = sorted.map(t => `
+                    <div class="checklist-item ${t.completed ? 'completed' : ''}">
+                        <div class="custom-checkbox ${t.completed ? 'checked' : ''}" onclick="toggleChessTask(${t.id})"></div>
+                        <span class="task-text">${t.text}</span>
+                        <span style="font-size:0.75rem; color:#9a8ca8;">${t.category}</span>
+                        <button class="btn btn-small btn-delete" onclick="deleteChessTask(${t.id})">✕</button>
+                    </div>
+                `).join('');
+            }
+
+            // Progress
+            const done = todayTasks.filter(t => t.completed).length;
+            const total = todayTasks.length;
+            const pct = total > 0 ? (done / total) * 100 : 0;
+            document.getElementById('chessProgressText').textContent = `${done}/${total} done`;
+            document.getElementById('chessProgressBar').style.width = pct + '%';
+
+            // Stats
+            const allCompleted = data.chessTasks.filter(t => t.completed);
+            document.getElementById('chessPuzzles').textContent = allCompleted.filter(t => t.category.includes('Puzzle')).length;
+            document.getElementById('chessGames').textContent = allCompleted.filter(t => t.category.includes('Game')).length;
+            document.getElementById('chessStudy').textContent = allCompleted.filter(t => t.category.includes('Study') || t.category.includes('Video')).length;
+        }
+
+        // ============ DASHBOARD ============
+        function updateDashboard() {
+            const totalIncome = data.income.reduce((sum, i) => sum + i.amount, 0);
+            const totalExpenses = data.expenses.reduce((sum, e) => sum + e.amount, 0);
+            const balance = totalIncome - totalExpenses;
+
+            document.getElementById('dashBalance').textContent = '₱' + balance.toLocaleString('en-US', {minimumFractionDigits: 2});
+
+            const today = new Date().toISOString().split('T')[0];
+            const dailyDone = data.dailyTasks.filter(t => t.date === today && t.completed).length;
+            document.getElementById('dashTasksDone').textContent = dailyDone;
+
+            const uniPending = data.uniTasks.filter(t => !t.completed).length;
+            document.getElementById('dashUniPending').textContent = uniPending;
+
+            const chessDone = data.chessTasks.filter(t => t.date === today && t.completed).length;
+            document.getElementById('dashChessDone').textContent = chessDone;
+
+            // Streak calculation
+            updateStreak();
+        }
+
+        function updateStreak() {
+            const today = new Date().toISOString().split('T')[0];
+            const todayTasks = data.dailyTasks.filter(t => t.date === today);
+            const allDone = todayTasks.length > 0 && todayTasks.every(t => t.completed);
+
+            if (allDone) {
+                if (data.lastCompleteDate !== today) {
+                    const yesterday = new Date();
+                    yesterday.setDate(yesterday.getDate() - 1);
+                    const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+                    if (data.lastCompleteDate === yesterdayStr) {
+                        data.streak++;
+                    } else if (data.lastCompleteDate !== today) {
+                        data.streak = 1;
+                    }
+                    data.lastCompleteDate = today;
+                    saveData();
+                }
+            }
+
+            document.getElementById('streakBadge').textContent = `🔥 ${data.streak} day streak`;
+        }
+
+        // ============ RENDER ALL ============
+        function renderAll() {
+            renderFinance();
+            renderDailyTasks();
+            renderUniTasks();
+            renderChessTasks();
+            updateDashboard();
+        }
+
+        // ============ MASCOT ============
+        const mascotMessages = [
+            "hi bestie! u got this today! 💖",
+            "remember to drink water! 💧🦫",
+            "capybara believes in u! ✨",
+            "ur doing amazing sweetie! 🌸",
+            "take a break if u need one~ 🍵",
+            "proud of u for tracking stuff! 📊💕",
+            "slay the day bestie! 💅✨",
+            "capybara hugs! 🤗🦫",
+            "no bc ur literally crushing it 🏆",
+            "main character energy today! 🌟",
+            "it's giving productive! 💪🦫",
+            "touch grass later ok? 🌿",
+            "u r valid and loved 💖🦫",
+            "chess GM arc when? ♟️🔥",
+            "boba break soon? 🧋✨"
+        ];
+
+        function toggleSpeech() {
+            const speech = document.getElementById('mascotSpeech');
+            speech.textContent = mascotMessages[Math.floor(Math.random() * mascotMessages.length)];
+            speech.classList.toggle('show');
+            setTimeout(() => speech.classList.remove('show'), 3000);
+        }
+
+        function showMascotMessage(msg) {
+            const speech = document.getElementById('mascotSpeech');
+            speech.textContent = msg;
+            speech.classList.add('show');
+            setTimeout(() => speech.classList.remove('show'), 3000);
+        }
+
+        // ============ QUOTES ============
+        function randomQuote() {
+            const quotes = [
+                '"Just keep swimming... or floating like a capybara 🌊"',
+                '"You\'re doing better than you think, bestie ✨"',
+                '"Every expert was once a beginner 🌱"',
+                '"Small steps still count as progress 🐾"',
+                '"Be like a capybara: chill but productive 🦫"',
+                '"The best time to start is now! 🌸"',
+                '"Your pace is valid. Keep going! 💖"',
+                '"Consistency beats perfection every time 🏆"',
+                '"Today is a good day to be productive! ☀️"',
+                '"You\'re literally the main character 🌟"',
+                '"Trust the process bestie~ 🫧"',
+                '"Discipline = freedom ✨🦫"'
+            ];
+            document.getElementById('dailyQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+        }
+
+        // ============ THEME TOGGLE ============
+        let darkMode = false;
+        function toggleTheme() {
+            darkMode = !darkMode;
+            const btn = document.querySelector('.theme-toggle');
+            if (darkMode) {
+                document.body.style.background = 'linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1a1a2e)';
+                document.body.style.backgroundSize = '400% 400%';
+                document.body.style.color = '#e0d6f0';
+                btn.textContent = '☀️';
+                document.querySelectorAll('.card, .dashboard-widget').forEach(el => {
+                    el.style.background = 'rgba(30, 30, 60, 0.75)';
+                    el.style.borderColor = 'rgba(100, 100, 150, 0.3)';
+                });
+                document.querySelectorAll('input, select, textarea').forEach(el => {
+                    el.style.background = 'rgba(30, 30, 60, 0.7)';
+                    el.style.color = '#e0d6f0';
+                    el.style.borderColor = 'rgba(100, 100, 150, 0.3)';
+                });
+                document.querySelectorAll('.transaction-item, .checklist-item, .chess-stat').forEach(el => {
+                    el.style.background = 'rgba(30, 30, 60, 0.5)';
+                });
+            } else {
+                document.body.style.background = 'linear-gradient(135deg, #fce4ec, #e8eaf6, #e0f7fa, #fff3e0)';
+                document.body.style.backgroundSize = '400% 400%';
+                document.body.style.color = '#5A4A6B';
+                btn.textContent = '🌙';
+                document.querySelectorAll('.card, .dashboard-widget').forEach(el => {
+                    el.style.background = 'rgba(255, 255, 255, 0.75)';
+                    el.style.borderColor = 'rgba(255, 255, 255, 0.7)';
+                });
+                document.querySelectorAll('input, select, textarea').forEach(el => {
+                    el.style.background = 'rgba(255, 255, 255, 0.7)';
+                    el.style.color = '#5A4A6B';
+                    el.style.borderColor = 'rgba(201, 177, 255, 0.3)';
+                });
+                document.querySelectorAll('.transaction-item, .checklist-item, .chess-stat').forEach(el => {
+                    el.style.background = 'rgba(255, 255, 255, 0.5)';
+                });
+            }
+        }
+
+        // ============ CONFETTI ============
+        function triggerConfetti() {
+            const canvas = document.getElementById('confettiCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#ff6b9d', '#c471ed', '#12c2e9', '#f5576c', '#a8e063', '#ffd700', '#ff9a9e', '#fecfef'];
+
+            for (let i = 0; i < 100; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: -10 - Math.random() * 200,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speed: Math.random() * 3 + 2,
+                    spin: Math.random() * 0.2 - 0.1,
+                    angle: 0,
+                    drift: Math.random() * 2 - 1
+                });
+            }
+
+            let frame = 0;
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let alive = false;
+
+                particles.forEach(p => {
+                    if (p.y < canvas.height + 20) {
+                        alive = true;
+                        p.y += p.speed;
+                        p.x += p.drift;
+                        p.angle += p.spin;
+
+                        ctx.save();
+                        ctx.translate(p.x, p.y);
+                        ctx.rotate(p.angle);
+                        ctx.fillStyle = p.color;
+                        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+                        ctx.restore();
+                    }
+                });
+
+                frame++;
+                if (alive && frame < 300) {
+                    requestAnimationFrame(animate);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+            animate();
+        }
+
+        // Auto-show mascot speech on load
+        setTimeout(() => {
+            toggleSpeech();
+        }, 2000);
+    </script>
+</body>
+</html>
